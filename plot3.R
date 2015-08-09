@@ -1,9 +1,9 @@
 # Coursera - Exploratory Data Analysis
 # Course Project 1 (Posted by Direction from Instructors)
 # Submitter:  A. Nichols
-# Date: July 12, 2015
+# Date: August 9, 2015
 
-# Plot 4
+# Plot 3
 # Set working directory, source the code, and go!
 
 # Install and load required packages:
@@ -47,55 +47,31 @@ data4 <- filter(data3, Date>"2007-01-31", Date<="2007-02-02")
 data5 <- mutate(data4, Time=hms(Time))
 data5df <- data.frame(data5) 				# data5 and data5df are the baseline data sets
 
-### Plot 4 ###
+### Plot 3 ###
 
-# Plot4.1 #
+data20 <- select(data5, Date, Time, Sub_metering_1:Sub_metering_3)
+data21 <- mutate(data20, Date_Time=Date+Time)
+data21 <- select(data21, Date_Time, Sub_metering_1:Sub_metering_3)
+data21df <- data.frame(data21)
 
-data40 <- select(data5, Date:Global_active_power)
-data41 <- mutate(data40, Date_Time=Date+Time)
-data41 <- select(data41, Date_Time, Global_active_power)
-data41df <- data.frame(data41)
-
-par(mfcol=c(2,2))		# Create four images at once (2 x 2)
-
-with(data41, 
-	plot(Date_Time, Global_active_power, 
-		type="l",
-		lwd="1.9", 
-		col="Black",
-		bg="White",
-		xlab="",
-		ylab="Global Active Power",
-		cex.lab=0.95
-	)
-)
-
-# Plot4.2 #
-
-data50 <- select(data5, Date, Time, Sub_metering_1:Sub_metering_3)
-data51 <- mutate(data50, Date_Time=Date+Time)
-data51 <- select(data51, Date_Time, Sub_metering_1:Sub_metering_3)
-data51df <- data.frame(data51)
-
-with(data51, plot(Date_Time, Sub_metering_1, type="n",
+with(data21, plot(Date_Time, Sub_metering_1, type="n",
 	xlab="",
-	ylab="Energy sub metering",
-	cex.lab=0.95
+	ylab="Energy sub metering"
 	)
 )
-with(data51, points(Date_Time, Sub_metering_1,  
+with(data21, points(Date_Time, Sub_metering_1,  
 		type="l",
 		lwd="1.9", 
 		col="Black"
 	)
 )
-with(data51, points(Date_Time, Sub_metering_2,  
+with(data21, points(Date_Time, Sub_metering_2,  
 		type="l",
 		lwd="1.9", 
 		col="Red"
 	)
 )
-with(data51, points(Date_Time, Sub_metering_3,  
+with(data21, points(Date_Time, Sub_metering_3,  
 		type="l",
 		lwd="1.9", 
 		col="Blue"
@@ -107,52 +83,12 @@ legend("topright",
 	legend=text1,
 	col=c("Black", "Red", "Blue"),
 	lty=1,
-	cex=0.9,
-	bty="n"
-)
-
-# Plot4.3 #
-
-data50 <- select(data5, Date, Time, Voltage)
-data51 <- mutate(data50, Date_Time=Date+Time)
-data51 <- select(data51, Date_Time, Voltage)
-data51df <- data.frame(data51)
-
-with(data51, 
-	plot(Date_Time, Voltage, 
-		type="l",
-		lwd="1.9", 
-		col="Black",
-		bg="White",
-		xlab="datetime",
-		ylab="Voltage",
-		cex.lab=0.95
-	)
-)
-
-
-# Plot4.4 #
-
-data60 <- select(data5, Date, Time, Global_reactive_power)
-data61 <- mutate(data60, Date_Time=Date+Time)
-data61 <- select(data61, Date_Time, Global_reactive_power)
-data61df <- data.frame(data61)
-
-with(data61, 
-	plot(Date_Time, Global_reactive_power, 
-		type="l",
-		lwd="1.9", 
-		col="Black",
-		bg="White",
-		xlab="datetime",
-		ylab="Global_reactive_power",
-		cex.lab=0.95
-	)
+	cex=0.7
 )
 
 # Copy 480 x 480 png image to working directory, then turn off the device:
 
-dev.copy(png, file="plot4.png", width=480, height=480, bg="White")
+dev.copy(png, file="plot3.png", width=480, height=480, bg="White")
 dev.off()
 
 ####### End of Program ########

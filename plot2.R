@@ -1,9 +1,9 @@
 # Coursera - Exploratory Data Analysis
 # Course Project 1 (Posted by Direction from Instructors)
 # Submitter:  A. Nichols
-# Date: July 12, 2015
+# Date: August 9, 2015
 
-# Plot 1
+# Plot 2
 # Set working directory, source the code, and go!
 
 # Install and load required packages:
@@ -47,21 +47,27 @@ data4 <- filter(data3, Date>"2007-01-31", Date<="2007-02-02")
 data5 <- mutate(data4, Time=hms(Time))
 data5df <- data.frame(data5) 				# data5 and data5df are the baseline data sets
 
-#### Plot 1 ###
+### Plot 2 ###
 
-data6 <- select(data5, Global_active_power)
-data7 <- filter(data6, !is.na(Global_active_power))
-hist(data7$Global_active_power, 
-	breaks=12,
-	col="Red",
-	bg="White",
-	main="Global Active Power",
-	xlab="Global Active Power (kilowatts)",
-	ylab="Frequency")
+data10 <- select(data5, Date:Global_active_power)
+data11 <- mutate(data10, Date_Time=Date+Time)
+data11 <- select(data11, Date_Time, Global_active_power)
+data11df <- data.frame(data11)
+
+with(data11, 
+	plot(Date_Time, Global_active_power, 
+		type="l",
+		lwd="1.9", 
+		col="Black",
+		bg="White",
+		xlab="",
+		ylab="Global Active Power (kilowatts)"
+	)
+)
 
 # Copy 480 x 480 png image to working directory, then turn off the device:
 
-dev.copy(png, file="plot1.png", width=480, height=480, bg="White")
+dev.copy(png, file="plot2.png", width=480, height=480, bg="White")
 dev.off()
 
 ####### End of Program ########
